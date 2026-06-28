@@ -11,4 +11,6 @@ df['edge_away']=df['best_price_away']/df['fair_away']-1
 print(df)
 print(df[df['edge_home']>0][['home_team','edge_home']])
 print(df[df['edge_away']>0][['away_team','edge_away']])
+print(df.sort_values('edge_home',ascending=False)[['home_team','edge_home']])
+print(df.sort_values('edge_away',ascending=False)[['away_team','edge_away']])
 df.to_csv('sharpiq_results.csv')
