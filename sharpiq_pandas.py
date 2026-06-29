@@ -8,9 +8,11 @@ df['fair_away']=df['away_odds']*df['total']
 
 df['edge_home']=df['best_price_home']/df['fair_home']-1
 df['edge_away']=df['best_price_away']/df['fair_away']-1
-
+print("SharpIQ NRL Scanner")
+print("Value Bets")
 print(df[df['edge_home']>0][['home_team','edge_home']])
 print(df[df['edge_away']>0][['away_team','edge_away']])
+print("All Teams Ranked By Edge")
 print(df.sort_values('edge_home',ascending=False)[['home_team','edge_home']])
 print(df.sort_values('edge_away',ascending=False)[['away_team','edge_away']])      
       
