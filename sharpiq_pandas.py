@@ -8,6 +8,8 @@ df['fair_away']=df['away_odds']*df['total']
 
 df['edge_home']=df['best_price_home']/df['fair_home']-1
 df['edge_away']=df['best_price_away']/df['fair_away']-1
+df['edge_home']=df['edge_home'].round(4)*100
+df['edge_away']=df['edge_away'].round(4)*100
 print("SharpIQ NRL Scanner")
 print("Value Bets")
 print(df[df['edge_home']>0][['home_team','edge_home']])
