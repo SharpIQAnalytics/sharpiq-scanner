@@ -48,6 +48,6 @@ cursor.execute('''
                ''')
 conn.commit()
 cursor.execute('SELECT home_team,away_team,date FROM games')
-cursor.execute('SELECT * FROM games WHERE date = "2026-07-05"')
+cursor.execute('SELECT home_team,away_team,home_odds FROM games ORDER BY home_odds DESC')
 for row in cursor.fetchall():
     print(row)
