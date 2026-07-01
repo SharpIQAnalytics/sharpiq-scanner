@@ -41,7 +41,13 @@ cursor.execute('''
                 VALUES('2026-07-05','Newcastle Knights','Dolphins',2.19,1.65,2.30,1.70,NULL,NULL,NULL)
                 ''')
 conn.commit()
+cursor.execute('''
+               UPDATE games
+               SET result = NULL,closing_home = NULL,closing_away = NULL
+               WHERE home_team = "Penrith Panthers"
+               ''')
+conn.commit()
 cursor.execute('SELECT home_team,away_team,date FROM games')
-cursor.execute('SELECT FROM games WHERE date = "2026-07-05"')
+cursor.execute('SELECT * FROM games WHERE date = "2026-07-05"')
 for row in cursor.fetchall():
     print(row)
