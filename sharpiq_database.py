@@ -48,5 +48,6 @@ cursor.execute('''
                ''')
 conn.commit()
 cursor.execute('SELECT home_team,away_team,date,home_odds FROM games ORDER BY date ASC,home_odds DESC')
+cursor.execute('SELECT COUNT (*) FROM games WHERE result IS NULL')
 for row in cursor.fetchall():
     print(row)
