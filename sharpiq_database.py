@@ -47,7 +47,6 @@ cursor.execute('''
                WHERE home_team = "Penrith Panthers"
                ''')
 conn.commit()
-cursor.execute('SELECT home_team,away_team,date FROM games')
-cursor.execute('SELECT home_team,away_team,home_odds FROM games ORDER BY home_odds DESC')
+cursor.execute('SELECT home_team,away_team,date,home_odds FROM games ORDER BY date ASC,home_odds DESC')
 for row in cursor.fetchall():
     print(row)
