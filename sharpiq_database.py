@@ -16,10 +16,19 @@ cursor.execute('''
                ''')
 conn.commit()
 cursor.execute('''
-               UPDATE games
-               SET result = 'home',closing_home = 1.83,closing_away = 1.92 WHERE home_team = "Newcastle Knights"
+               CREATE TABLE IF NOT EXISTS scans(
+               date TEXT,
+               home_team TEXT,
+               away_team TEXT,
+               edge_home REAL,
+               edge_away REAL,
+               verdict_home TEXT,
+               verdict_away TEXT)
                ''')
 conn.commit()
+cursor.execute("SELECT name FROM sqlite_master WHERE type ='table'")
+for row in cursor.fetchall():
+    print(row)
 cursor.execute('SELECT home_team,away_team,result,closing_home,closing_away FROM games')
 for row in cursor.fetchall():
     print(row)
