@@ -17,7 +17,7 @@ cursor.execute('''
 conn.commit()
 cursor.execute('''
                UPDATE games
-               SET result = 'home',closing_home = 3.85,closing_away = 1.33 WHERE home_team = "Parramatta Eels"
+               SET result = 'home',closing_home = 1.83,closing_away = 1.92 WHERE home_team = "Newcastle Knights"
                ''')
 conn.commit()
 cursor.execute('SELECT home_team,away_team,result,closing_home,closing_away FROM games')
