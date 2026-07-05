@@ -15,7 +15,10 @@ cursor.execute('''
                closing_away REAL)
                ''')
 conn.commit()
-cursor.execute('DELETE FROM games WHERE rowid NOT IN (SELECT MIN(rowid)FROM games GROUP BY home_team)')
+cursor.execute('''
+               UPDATE games
+               SET result = 'home',closing_home = 3.85,closing_away = 1.33 WHERE home_team = "Parramatta Eels"
+               ''')
 conn.commit()
 cursor.execute('SELECT home_team,away_team,result,closing_home,closing_away FROM games')
 for row in cursor.fetchall():
