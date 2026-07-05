@@ -16,11 +16,11 @@ for game in games:
   fair_away=game['away_odds']*total
   edge_home=game['best_price_home']/fair_home-1
   edge_away=game['best_price_away']/fair_away-1
-  if edge_home>0:
+  if edge_home>0.04:
       print(game['home_team'],("VALUE"))
   else:
       print(game['home_team'],("SKIP"))
-  if edge_away>0:
+  if edge_away>0.04:
       print(game['away_team'], ("VALUE"))
   else:
       print(game['away_team'],("SKIP"))
