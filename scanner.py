@@ -1,3 +1,7 @@
+from datetime import date
+import sqlite3
+conn=sqlite3.connect('sharpiq.db')
+cursor=conn.cursor()
 games=[
 {'home_team':'Canberra Raiders','away_team':'St George Dragons','home_odds':1.32,'away_odds':3.80,'best_price_home':1.32,'best_price_away':3.80},
 {'home_team':'South Sydney','away_team':'Parramatta','home_odds':1.58,'away_odds':2.55,'best_price_home':1.58,'best_price_away':2.55},
@@ -9,7 +13,6 @@ games=[
 {'home_team':'West Tigers','away_team':'Newcastle','home_odds':2.90,'away_odds':1.50,'best_price_home':2.90,'best_price_away':1.50}
 
 ]
-
 for game in games:    
   total=1/game['home_odds']+1/game['away_odds']
   fair_home=game['home_odds']*total
@@ -17,13 +20,20 @@ for game in games:
   edge_home=game['best_price_home']/fair_home-1
   edge_away=game['best_price_away']/fair_away-1
   if edge_home>0.04:
-      print(game['home_team'],("VALUE"))
+      verdict_home = "VALUE"
   else:
-      print(game['home_team'],("SKIP"))
+      verdict_home = "SKIP"
   if edge_away>0.04:
-      print(game['away_team'], ("VALUE"))
+      verdict_away = "VALUE"
   else:
-      print(game['away_team'],("SKIP"))
-  print(game['home_team'],round(fair_home,2),'|',game['away_team'],
+      verdict_away = "SKIP"
+  cursor.execute('''
+               INSERT INTO scans
+               (date,home_team,away_team,edge_home,edge_away,verdict_home,verdict_away)
+               VALUES(?,?,?,?,?,?,?)
+               ''',(str(date.today()),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
+conn.commit()
+print(game['home_team'],round(fair_home,2),'|',game['away_team'],
  round(fair_away,2))
+
  

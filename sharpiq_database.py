@@ -26,6 +26,9 @@ cursor.execute('''
                verdict_away TEXT)
                ''')
 conn.commit()
+cursor.execute('SELECT * FROM scans')
+for row in cursor.fetchall():
+    print(row)
 cursor.execute("SELECT name FROM sqlite_master WHERE type ='table'")
 for row in cursor.fetchall():
     print(row)
