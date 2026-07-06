@@ -32,8 +32,6 @@ for game in games:
                (date,home_team,away_team,edge_home,edge_away,verdict_home,verdict_away)
                VALUES(?,?,?,?,?,?,?)
                ''',(str(date.today()),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
+  print(game['home_team'],round(edge_home*100,2),verdict_home,'|',game['away_team'],round(edge_away*100,2),verdict_away)
 conn.commit()
-print(game['home_team'],round(fair_home,2),'|',game['away_team'],
- round(fair_away,2))
-
- 
+   
