@@ -2,6 +2,8 @@ from datetime import date
 import sqlite3
 conn=sqlite3.connect('sharpiq.db')
 cursor=conn.cursor()
+cursor.execute('DELETE FROM scans')
+conn.commit()
 games=[
 {'home_team':'Canberra Raiders','away_team':'St George Dragons','home_odds':1.32,'away_odds':3.80,'best_price_home':1.32,'best_price_away':3.80},
 {'home_team':'South Sydney','away_team':'Parramatta','home_odds':1.58,'away_odds':2.55,'best_price_home':1.58,'best_price_away':2.55},
