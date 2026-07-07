@@ -26,6 +26,8 @@ cursor.execute('''
                verdict_away TEXT)
                ''')
 conn.commit()
+cursor.execute('DELETE FROM games WHERE home_team = "Wests Tigers" AND rowid NOT IN (SELECT MIN(rowid)FROM games WHERE home_team = "Wests Tigers")')
+conn.commit()
 cursor.execute('SELECT * FROM scans')
 for row in cursor.fetchall():
     print(row)
