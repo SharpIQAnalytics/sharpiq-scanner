@@ -5,6 +5,8 @@ How IT Works:
 * Best AU price comparison- All major Australian Sports books are scanned to find the best price 
 * Edge threshold- SharpIQ has a built in threshold of 4%. SharpIQ only flags VALUE when the edge exceeds 4% - filtering out noise and marginal calls 
 * Live CLV tracking results- Every scan result is recorded against the closing line to measure whether the edge identified was genuine or noise.
-* Current Status:
+
+Current Status:
 SharpIQ has a fully automated pipeline, a tool that has demonstrated it can scan, find value, record verdicts and track outcomes. Round 19 NRL CLV data across four VALUE calls. Expanding to NBA, NFL and AFL with player prop modelling and statistical anomaly detection.
-* Built by Craig Sargent- An independent analyist, currently 6 weeks into building SharpIQ from scratch. My target is a career in a trading or risk analysis role with Sportsbet Australia, with a long term pathway to FanDuel US through Flutter Entertainment.
+
+Built by Craig Sargent- An independent analyst, currently 6 weeks into building SharpIQ from scratch. My target is a career in a trading or risk analysis role with Sportsbet Australia, with a long term pathway to FanDuel US through Flutter Entertainment.
