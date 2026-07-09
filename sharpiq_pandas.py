@@ -1,5 +1,8 @@
 import pandas as pd
-df=pd.read_csv('games.csv')
+import sqlite3
+conn = sqlite3.connect('sharpiq.db')
+cursor = conn.cursor()
+df = pd.read_sql_query('SELECT * FROM games WHERE result IS NULL',conn)
 
 df['total']=1/df['home_odds']+1/df['away_odds']
 
@@ -12,8 +15,8 @@ df['edge_home']=df['edge_home'].round(4)*100
 df['edge_away']=df['edge_away'].round(4)*100
 print("SharpIQ NRL Scanner")
 print("Value Bets")
-print(df[df['edge_home']>0][['home_team','edge_home']])
-print(df[df['edge_away']>0][['away_team','edge_away']])
+print(df[df['edge_home']>4][['home_team','edge_home']])
+print(df[df['edge_away']>4][['away_team','edge_away']])
 print("All Teams Ranked By Edge")
 print(df.sort_values('edge_home',ascending=False)[['home_team','edge_home']])
 print(df.sort_values('edge_away',ascending=False)[['away_team','edge_away']])      
