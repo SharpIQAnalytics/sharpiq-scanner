@@ -12,7 +12,8 @@ cursor.execute('''
                best_price_away REAL,
                result TEXT,
                closing_home REAL,
-               closing_away REAL)
+               closing_away REAL,
+               UNIQUE(date,home_team,away_team))
                ''')
 conn.commit()
 cursor.execute('''
