@@ -9,6 +9,7 @@ columns=['home_team','away_team','home_odds','away_odds','best_price_home','best
 games=[dict(zip(columns,row))for row in cursor.fetchall()]
 for game in games:
   total=1/game['home_odds']+1/game['away_odds']
+  
   fair_home=game['home_odds']*total
   fair_away=game['away_odds']*total
   edge_home=game['best_price_home']/fair_home-1
