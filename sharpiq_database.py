@@ -33,6 +33,9 @@ for row in cursor.fetchall():
 cursor.execute("SELECT name FROM sqlite_master WHERE type ='table'")
 for row in cursor.fetchall():
     print(row)
-cursor.execute('SELECT home_team,away_team,result,closing_home,closing_away FROM games')
+cursor.execute('''UPDATE games SET closing_home = 3.29,closing_away = 1.39,result = 'away' Where home_team = 'Wests Tigers' AND date ='2026-07-10'
+               ''')
+conn.commit()
+cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away FROM games')
 for row in cursor.fetchall():
     print(row)

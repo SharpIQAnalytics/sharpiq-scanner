@@ -36,7 +36,7 @@ for game in games:
                     if outcome['name']==game['away_team']:
                         if outcome['price']>best_away:
                             best_away=outcome['price']
-    cursor.execute('''
+cursor.execute('''
                    INSERT OR IGNORE INTO games
                    (date,home_team,away_team,home_odds,away_odds,best_price_home,best_price_away)
                    VALUES(?,?,?,?,?,?,?)''',
