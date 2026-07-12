@@ -34,17 +34,31 @@ cursor.execute("SELECT name FROM sqlite_master WHERE type ='table'")
 for row in cursor.fetchall():
     print(row)
 conn.commit()
-cursor.execute('''UPDATE games SET closing_home = 1.84,closing_away = 2.16,result ='away' WHERE home_team = 'Dolphins' AND date = '2026-07-11' 
+cursor.execute('''UPDATE games SET closing_home = 1.35,closing_away = 3.70,result = 'home' WHERE home_team = 'Newcastle' AND date = '2026-06-28'
                ''')
-cursor.execute('''UPDATE games SET closing_home = 1.69, closing_away = 2.40, result = 'away' WHERE home_team = 'Canterbury Bulldogs' AND date = '2026-07-11'
+cursor.execute('''UPDATE games SET closing_home = 1.57,closing_away = 2.60,result = 'home' WHERE home_team = 'Penrith Panthers' AND date = '2026-07-03'
                ''')
-cursor.execute('''UPDATE games SET closing_home = 1.33, closing_away = 3.90, result = 'home' WHERE home_team = 'Sydney Roosters' AND date = '2026-07-11'
+cursor.execute('''UPDATE games SET closing_home = 2.22,closing_away = 1.73,result = 'home' WHERE home_team = 'St George Dragons'AND date = '2026-07-04'
                ''')
-cursor.execute('''UPDATE games SET closing_home = 2.25,closing_away = 1.78, result = 'away' WHERE home_team = 'South Sydney' AND date = '2026-07-12'
+cursor.execute('''UPDATE games SET closing_home = 2.78,closing_away = 1.55,result = 'away' WHERE home_team = 'Brisbane Broncos' AND date = '2026-07-04'
                ''')
-cursor.execute('''UPDATE games SET closing_home = 1.50,closing_away = 3.00, result = 'away' WHERE home_team = 'North Queensland Cowboys' AND date = '2026-07-12'
+cursor.execute('''UPDATE games SET closing_home = 3.85,closing_away = 1.33, result = 'home' WHERE home_team = 'Parramatta Eels' AND date = '2026-07-05'
                ''')
-cursor.execute('''UPdate games SET closing_home = 1.35, closing_away = 3.85, result = 'Melbourne Storm' AND date = '2026-07-12'
+cursor.execute('''UPDATE games SET closing_home = 1.83,closing_away = 1.92, result = 'home' WHERE home_team = 'Newcastle Knights' AND date = '2026-07-05'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 3.29,closing_away = 1.39,result = 'away' WHERE home_team = 'Wests Tigers' AND date = '2026-07-10'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 1.84,closing_away = 2.16,result = 'away' WHERE home_team = 'Dolphins' AND date = '2026-07-11'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 1.69,closing_away = 2.40,result = 'away' WHERE home_team = 'Canterbury Bulldogs' AND date = '2026-07-11'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 1.33,closing_away = 3.90,result = 'home' WHERE home_team = 'Sydney Roosters' AND date = '2026-07-11'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 2.25,closing_away = 1.78,result = 'home' WHERE home_team = 'South Sydney Rabbitohs' AND date = '2026-07-12'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 1.50,closing_away = 2.88,result = 'away' WHERE home_team = 'Manly Warringah Sea Eagles' AND date = '2026-07-12'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 1.34,closing_away = 3.60,result = 'home' WHERE home_team = 'Melbourne Storm' AND date = '2026-07-12'
                ''')
 conn.commit()
 cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away FROM games')
