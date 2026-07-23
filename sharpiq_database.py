@@ -16,6 +16,11 @@ cursor.execute('''
                UNIQUE(date,home_team,away_team))
                ''')
 conn.commit()
+try:
+    cursor.execute('ALTER TABLE games ADD COLUMN kickoff_utc TEXT')
+    conn.commit()
+except:
+    pass
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS scans(
                date TEXT,
