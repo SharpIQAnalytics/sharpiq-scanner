@@ -9,7 +9,7 @@ columns=['kickoff_utc','home_team','away_team','home_odds','away_odds','best_pri
 games=[dict(zip(columns,row))for row in cursor.fetchall()]
 for game in games:
     if game['kickoff_utc']is None:
-        print("No kickoff time recorded for",game['home_team'],"vs",game['away_team'])
+        print("NO kickoff time recorded for",game['home_team'],"vs",game['away_team'])
         continue
     kickoff_time=datetime.strptime(game['kickoff_utc'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
     if kickoff_time-datetime.now(timezone.utc)>timedelta(hours=3):
@@ -34,4 +34,4 @@ for game in games:
                VALUES(?,?,?,?,?,?,?)
                ''',(datetime.now().strftime('%Y-%m-%d'),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
         print(game['home_team'],round(edge_home*100,2),verdict_home,'|',game['away_team'],round(edge_away*100,2),verdict_away)
-conn.commit()
+        conn.commit()

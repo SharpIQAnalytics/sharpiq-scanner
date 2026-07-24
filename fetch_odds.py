@@ -18,6 +18,7 @@ for game in games:
     print(game['home_team'],game['away_team'],game['commence_time'])
     date=datetime.strptime(game['commence_time'],'%Y-%m-%dT%H:%M:%SZ').strftime('%Y-%m-%d')
     kickoff_time=datetime.strptime(game['commence_time'],'%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    kickoff_utc=kickoff_time.strftime('%Y-%m-%dT%H:%M:%SZ')
     print(kickoff_time-datetime.now(timezone.utc))
     if kickoff_time-datetime.now(timezone.utc)>timedelta(hours=3):
         print("Too early to scan reliably")
@@ -45,8 +46,8 @@ for game in games:
                             best_away=outcome['price']
     cursor.execute('''
                     INSERT OR IGNORE INTO games
-                    (date,home_team,away_team,home_odds,away_odds,best_price_home,best_price_away)
-                    VALUES(?,?,?,?,?,?,?)''',
-                    (date,game['home_team'],game['away_team'],sportsbet_home,sportsbet_away,best_home,best_away))
+                    (date,kickoff_utc,home_team,away_team,home_odds,away_odds,best_price_home,best_price_away)
+                    VALUES(?,?,?,?,?,?,?,?)''',
+                    (date,kickoff_utc,game['home_team'],game['away_team'],sportsbet_home,sportsbet_away,best_home,best_away))
 conn.commit()
 print("Games updated")

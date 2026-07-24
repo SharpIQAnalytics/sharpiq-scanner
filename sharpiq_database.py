@@ -65,6 +65,10 @@ cursor.execute('''UPDATE games SET closing_home = 1.50,closing_away = 2.88,resul
                ''')
 cursor.execute('''UPDATE games SET closing_home = 1.34,closing_away = 3.60,result = 'home' WHERE home_team = 'Melbourne Storm' AND date = '2026-07-12'
                ''')
+cursor.execute('''UPDATE games SET closing_home = 3.60,result = 'away' WHERE home_team = 'Newcastle Knights' AND date = '2026-07-24'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 2.00,closing_away = 1.90,result = 'home' WHERE home_team = 'South Sydney Rabbitohs' AND date = '2026-07-24'
+               ''' )
 conn.commit()
 cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away FROM games')
 for row in cursor.fetchall():
