@@ -15,6 +15,9 @@ for game in games:
     if kickoff_time-datetime.now(timezone.utc)>timedelta(hours=3):
         print("too early to scan reliably-",game['home_team'],"vs",game['away_team'])
     else:
+        if game ['home_odds']==0 or game['away_odds']==0:
+            print("No live odds available for",game['home_team'],"vs",game['away_team'])
+            continue
         total=1/game['home_odds']+1/game['away_odds']
         fair_home=game['home_odds']*total
         fair_away=game['away_odds']*total

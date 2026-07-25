@@ -45,9 +45,13 @@ for game in games:
                         if outcome['price']>best_away:
                             best_away=outcome['price']
     cursor.execute('''
-                    INSERT OR IGNORE INTO games
+                    INSERT INTO games
                     (date,kickoff_utc,home_team,away_team,home_odds,away_odds,best_price_home,best_price_away)
-                    VALUES(?,?,?,?,?,?,?,?)''',
+                    VALUES(?,?,?,?,?,?,?,?) 
+                    ON CONFLICT(date,home_team,away_team)
+                    DO UPDATE SET
+                    kickoff_utc=excluded.kickoff_utc,home_odds=excluded.home_odds,away_odds=excluded.away_odds,best_price_home=excluded.best_price_home,best_price_away=excluded.best_price_away
+                   ''',
                     (date,kickoff_utc,game['home_team'],game['away_team'],sportsbet_home,sportsbet_away,best_home,best_away))
 conn.commit()
 print("Games updated")

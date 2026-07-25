@@ -73,3 +73,9 @@ conn.commit()
 cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away FROM games')
 for row in cursor.fetchall():
     print(row)
+cursor.execute("SELECT best_price_home,best_price_away FROM games WHERE date='2026-07-25'AND home_team='Canberra Raiders'")
+for row in cursor.fetchall():
+    print(row)
+cursor.execute("SELECT home_team,away_team,home_odds,away_odds FROM games WHERE date = '2026-07-25'")
+for row in cursor.fetchall():
+    print(row)
