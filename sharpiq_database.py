@@ -21,6 +21,12 @@ try:
     conn.commit()
 except:
     pass
+try:
+    cursor.execute('ALTER TABLE games ADD COLUMN clv_home REAL')
+    cursor.execute('ALTER TABLE games ADD COLUMN clv_away REAL')
+    conn.commit()
+except:
+    pass
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS scans(
                date TEXT,
@@ -69,13 +75,15 @@ cursor.execute('''UPDATE games SET closing_home = 3.60,result = 'away' WHERE hom
                ''')
 cursor.execute('''UPDATE games SET closing_home = 2.00,closing_away = 1.90,result = 'home' WHERE home_team = 'South Sydney Rabbitohs' AND date = '2026-07-24'
                ''' )
+cursor.execute('''UPDATE games SET closing_home = 1.18,closing_away = 5.60, result ='home' WHERE home_team = 'Canberra Raiders' AND date = '2026-07-25'
+               ''')
+cursor.execute('''UPDATE games SET clv_home = 0.0138 WHERE home_team = 'Newcastle Knights' AND date = '2026-07-24'
+               ''')
+cursor.execute('''UPDATE games SET clv_home = 0, clv_away = 0 WHERE home_team = 'South Sydney Rabbitohs' AND date = '2026-07-24'
+               ''')
+cursor.execute('''UPDATE games SET clv_home = 0.0169, clv_away = 0.0535 WHERE home_team = 'Canberra Raiders' AND date = '2026-07-25'
+               ''')
 conn.commit()
-cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away FROM games')
-for row in cursor.fetchall():
-    print(row)
-cursor.execute("SELECT best_price_home,best_price_away FROM games WHERE date='2026-07-25'AND home_team='Canberra Raiders'")
-for row in cursor.fetchall():
-    print(row)
-cursor.execute("SELECT home_team,away_team,home_odds,away_odds FROM games WHERE date = '2026-07-25'")
+cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away,clv_home,clv_away FROM games')
 for row in cursor.fetchall():
     print(row)
