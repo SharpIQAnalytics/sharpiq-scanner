@@ -37,10 +37,19 @@ for game in games:
         else:
             verdict_away = "SKIP"
             color_away=Fore.YELLOW
+        if  edge_home>0:
+             edge_color_home=Fore.GREEN
+        else:
+             edge_color_home=Fore.RED
+        if edge_away>0:
+             edge_color_away=Fore.GREEN
+        else:
+             edge_color_away=Fore.RED
+
         cursor.execute('''
                INSERT INTO scans
                (date,home_team,away_team,edge_home,edge_away,verdict_home,verdict_away)
                VALUES(?,?,?,?,?,?,?)
                ''',(datetime.now().strftime('%Y-%m-%d'),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
-        print(game['home_team'],Fore.RED+str(round(edge_home*100,2))+Style.RESET_ALL,color_home+verdict_home+Style.RESET_ALL,'|',game['away_team'],Fore.RED+str(round(edge_away*100,2))+Style.RESET_ALL,color_away+verdict_away+Style.RESET_ALL)
+        print(game['home_team'],edge_color_home+str(round(edge_home*100,2))+Style.RESET_ALL,color_home+verdict_home+Style.RESET_ALL,'|',game['away_team'],edge_color_away+str(round(edge_away*100,2))+Style.RESET_ALL,color_away+verdict_away+Style.RESET_ALL)
         conn.commit()
