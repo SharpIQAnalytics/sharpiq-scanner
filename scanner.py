@@ -1,4 +1,6 @@
 from datetime import datetime,timezone,timedelta
+from colorama import Fore,Style,init
+init()
 import sqlite3
 conn=sqlite3.connect('sharpiq.db')
 cursor=conn.cursor()
@@ -25,16 +27,20 @@ for game in games:
         edge_away=game['best_price_away']/fair_away-1
         if edge_home>0.04:
             verdict_home = "VALUE"
+            color_home=Fore.GREEN
         else:
             verdict_home = "SKIP"
+            color_home=Fore.YELLOW
         if  edge_away>0.04:
             verdict_away = "VALUE"
+            color_away=Fore.GREEN
         else:
             verdict_away = "SKIP"
+            color_away=Fore.YELLOW
         cursor.execute('''
                INSERT INTO scans
                (date,home_team,away_team,edge_home,edge_away,verdict_home,verdict_away)
                VALUES(?,?,?,?,?,?,?)
                ''',(datetime.now().strftime('%Y-%m-%d'),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
-        print(game['home_team'],round(edge_home*100,2),verdict_home,'|',game['away_team'],round(edge_away*100,2),verdict_away)
+        print(game['home_team'],Fore.RED+str(round(edge_home*100,2))+Style.RESET_ALL,color_home+verdict_home+Style.RESET_ALL,'|',game['away_team'],Fore.RED+str(round(edge_away*100,2))+Style.RESET_ALL,color_away+verdict_away+Style.RESET_ALL)
         conn.commit()
