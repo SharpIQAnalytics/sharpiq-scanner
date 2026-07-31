@@ -20,6 +20,7 @@ for game in games:
         if game ['home_odds']==0 or game['away_odds']==0:
             print("No live odds available for",game['home_team'],"vs",game['away_team'])
             continue
+        print(game['home_team'],"best_price",Fore.BLUE+str(game['best_price_home'])+Style.RESET_ALL,"|",game['away_team'],"best_price:",Fore.BLUE+str(game['best_price_away'])+Style.RESET_ALL)
         total=1/game['home_odds']+1/game['away_odds']
         fair_home=game['home_odds']*total
         fair_away=game['away_odds']*total

@@ -22,6 +22,12 @@ try:
 except:
     pass
 try:
+    cursor.execute('ALTER TABLE games ADD COLUMN best_home_bookmaker TEXT')
+    cursor.execute('ALTER TABLE games ADD COLUMN best_away_bookmaker TEXT')
+    conn.commit()
+except:
+    pass
+try:
     cursor.execute('ALTER TABLE games ADD COLUMN clv_home REAL')
     cursor.execute('ALTER TABLE games ADD COLUMN clv_away REAL')
     conn.commit()
@@ -83,7 +89,30 @@ cursor.execute('''UPDATE games SET clv_home = 0, clv_away = 0 WHERE home_team = 
                ''')
 cursor.execute('''UPDATE games SET clv_home = 0.0169, clv_away = 0.0535 WHERE home_team = 'Canberra Raiders' AND date = '2026-07-25'
                ''')
+cursor.execute('''UPDATE games SET closing_home = 2.58,closing_away = 1.62,result = 'away' WHERE home_team = 'North Queensland Cowboys' AND date = '2026-07-30'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 5.50,closing_away = 1.18, result = 'away' WHERE home_team = 'St George Illawarra Dragons' AND date = '2026-07-31'
+               ''')
+cursor.execute('''UPDATE games SET closing_home = 3.40,closing_away = 1.36, result = 'away' WHERE home_team = 'Melbourne Storm' AND date = '2026-07-31'
+               ''')
+conn.commit()
+cursor.execute("SELECT date,home_team,away_team,best_price_home,best_price_away,closing_home,closing_away FROM games WHERE closing_home IS NOT NULL AND clv_home IS NULL")
+columns=['date','home_team','away_team','best_price_home','best_price_away','closing_home','closing_away']
+games=[dict(zip(columns,row))for row in cursor.fetchall()]
+for game in games:
+    clv_home=round((game['best_price_home']/game['closing_home'])-1,4)
+    clv_away=round((game['best_price_away']/game['closing_away'])-1,4)
+    cursor.execute("UPDATE games SET clv_home=?,clv_away=? WHERE date=? AND home_team=?",(clv_home,clv_away,game['date'],game['home_team']))
 conn.commit()
 cursor.execute('SELECT date,home_team,away_team,result,closing_home,closing_away,clv_home,clv_away FROM games')
 for row in cursor.fetchall():
     print(row)
+cursor.execute("SELECT date,home_team,away_team,best_price_home,best_price_away,closing_home,closing_away,clv_home,clv_away FROM games WHERE clv_home IS NOT NULL")
+for row in cursor.fetchall():
+    print(row)
+cursor.execute("SELECT home_team,away_team,best_price_home,best_price_away FROM games WHERE date='2026-07-30' AND home_team='North Queensland Cowboys'")
+for row in cursor.fetchall():
+    print(row)
+cursor.execute("SELECT home_team,away_team,best_price_home,best_home_bookmaker,best_price_away,best_away_bookmaker FROM games WHERE date = '2026-08-01'")
+for row in cursor.fetchall():
+    print(row)    
