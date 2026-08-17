@@ -33,6 +33,18 @@ try:
     conn.commit()
 except:
     pass
+try:
+    cursor.execute('ALTER TABLE games ADD COLUMN pinnacle_home REAL')
+    cursor.execute('ALTER TABLE games ADD COLUMN pinnacle_away REAL')
+    conn.commit()
+except:
+    pass
+try:
+    cursor.execute('ALTER TABLE games ADD COLUMN betfair_home REAL')
+    cursor.execute('ALTER TABLE games ADD COLUMN betfair_away REAL')
+    conn.commit()
+except:
+    pass
 cursor.execute('''
                CREATE TABLE IF NOT EXISTS scans(
                date TEXT,
@@ -96,6 +108,11 @@ cursor.execute('''UPDATE games SET closing_home = 5.50,closing_away = 1.18, resu
 cursor.execute('''UPDATE games SET closing_home = 3.40,closing_away = 1.36, result = 'away' WHERE home_team = 'Melbourne Storm' AND date = '2026-07-31'
                ''')
 conn.commit()
+cursor.execute("UPDATE games SET result='home', clv_home=0.0256, clv_away=-0.0173 WHERE home_team='New Zealand Warriors' AND date='2026-08-07'")
+cursor.execute("UPDATE games SET result='home', clv_home=0.0132, clv_away=-0.0345 WHERE home_team='Sydney Roosters' AND date='2026-08-07'")
+cursor.execute("UPDATE games SET result='home', clv_home=0.0227, clv_away=-0.1026 WHERE home_team='South Sydney Rabbitohs' AND date='2026-08-08'")
+cursor.execute("UPDATE games SET result='home', clv_home=-0.1875, clv_away=0.0177 WHERE home_team='St George Illawarra Dragons' AND date='2026-08-09'")
+conn.commit()
 cursor.execute("SELECT date,home_team,away_team,best_price_home,best_price_away,closing_home,closing_away FROM games WHERE closing_home IS NOT NULL AND clv_home IS NULL")
 columns=['date','home_team','away_team','best_price_home','best_price_away','closing_home','closing_away']
 games=[dict(zip(columns,row))for row in cursor.fetchall()]
@@ -116,3 +133,6 @@ for row in cursor.fetchall():
 cursor.execute("SELECT home_team,away_team,best_price_home,best_home_bookmaker,best_price_away,best_away_bookmaker FROM games WHERE date = '2026-08-01'")
 for row in cursor.fetchall():
     print(row)    
+cursor.execute("SELECT date,home_team,away_team,result,clv_home,clv_away FROM games WHERE clv_home IS NOT NULL ORDER BY date")
+for row in cursor.fetchall():
+    print(row)
