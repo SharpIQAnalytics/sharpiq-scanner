@@ -54,8 +54,11 @@ for game in games:
 
         cursor.execute('''
                INSERT INTO scans
-               (date,home_team,away_team,edge_home,edge_away,verdict_home,verdict_away)
-               VALUES(?,?,?,?,?,?,?)
-               ''',(datetime.now().strftime('%Y-%m-%d'),game['home_team'],game['away_team'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
+               (date,home_team,away_team,best_price_home,best_price_away,edge_home,edge_away,verdict_home,verdict_away)
+               VALUES(?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(date,home_team,away_team)
+               DO UPDATE SET
+               best_price_home=excluded.best_price_home,best_price_away=excluded.best_price_away,edge_home=excluded.edge_home,edge_away=excluded.edge_away, verdict_home=excluded.verdict_home,verdict_away=excluded.verdict_away
+               ''',(datetime.now().strftime('%Y-%m-%d'),game['home_team'],game['away_team'],game['best_price_home'],game['best_price_away'],round(edge_home,4),round(edge_away,4),verdict_home,verdict_away))
         print(game['home_team'],edge_color_home+str(round(edge_home*100,2))+Style.RESET_ALL,color_home+verdict_home+Style.RESET_ALL,'|',game['away_team'],edge_color_away+str(round(edge_away*100,2))+Style.RESET_ALL,color_away+verdict_away+Style.RESET_ALL)
         conn.commit()

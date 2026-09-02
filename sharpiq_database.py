@@ -56,6 +56,16 @@ cursor.execute('''
                verdict_away TEXT)
                ''')
 conn.commit()
+cursor.execute('DELETE FROM scans')
+conn.commit()
+try:
+    cursor.execute('ALTER TABLE scans ADD COLUMN best_price_home REAL')
+    cursor.execute('ALTER TABLE scans ADD COLUMN best_price_away REAL')
+    conn.commit()
+except:
+    pass
+cursor.execute('CREATE UNIQUE INDEX IF NOT EXISTS idx_scans_unique ON scans(date, home_team, away_team) ')
+conn.commit()
 cursor.execute('SELECT * FROM scans')
 for row in cursor.fetchall():
     print(row)
