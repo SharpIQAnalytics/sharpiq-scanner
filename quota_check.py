@@ -1,6 +1,10 @@
 import sqlite3
 conn = sqlite3.connect('sharpiq.db')
 cursor = conn.cursor()
-cursor.execute("UPDATE games SET clv_home=-0.0185, clv_away=0.0140 WHERE home_team='Parramatta Eels' AND date='2026-08-30'")
+cursor.execute("UPDATE games SET result='away' WHERE home_team='Gold Coast Titans' AND date='2026-09-04'")
+cursor.execute("UPDATE games SET result='home' WHERE home_team='South Sydney Rabbitohs' AND date='2026-09-04'")
+cursor.execute("UPDATE games SET result='home' WHERE home_team='New Zealand Warriors' AND date='2026-09-05'")
+cursor.execute("UPDATE games SET result='away' WHERE home_team='Cronulla Sutherland Sharks' AND date='2026-09-05'")
+cursor.execute("UPDATE games SET result='home' WHERE home_team='St George Illawarra Dragons' AND date='2026-09-06'")
 conn.commit()
 print("Updated")
